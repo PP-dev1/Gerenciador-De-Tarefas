@@ -4,27 +4,44 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <TextField layoutX="163.0" layoutY="82.0" prefHeight="25.0" prefWidth="240.0" promptText="Pesquisar Tarefa..." />
+<AnchorPane prefHeight="620.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.gerenciadortarefas.Controller">
+    <children>
 
-      <TableView layoutX="375.0" layoutY="260.0" prefHeight="200.0" prefWidth="530.0">
-          <columnResizePolicy>
-              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-          </columnResizePolicy>
-        <columns>
-          <TableColumn prefWidth="106.0" text="Task" />
-          <TableColumn prefWidth="164.0" text="Descrição" />
-            <TableColumn prefWidth="98.0" text="Prazo" />
-            <TableColumn prefWidth="161.0" text="Status" />
-        </columns>
-      </TableView>
+        <TableView fx:id="tabela" layoutX="37.0" layoutY="82.0" prefHeight="200.0" prefWidth="645.0">
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+            <columns>
+                <TableColumn fx:id="marcar" maxWidth="40" minWidth="40" text="" />
+                <TableColumn fx:id="task" minWidth="0.0" prefWidth="165.0" text="Task" />
+                <TableColumn fx:id="descricao" minWidth="0.0" prefWidth="237.0" text="Descrição" />
+                <TableColumn fx:id="status" minWidth="0.0" prefWidth="119.0" text="Status" />
+            </columns>
+        </TableView>
 
-      <Button layoutX="37.0" layoutY="82.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Criar Tarefa +" />
-      <Label layoutX="504.0" layoutY="14.0" text="Gerenciador de Tarefas">
+        <Button fx:id="criarTarefa" layoutX="305.0" layoutY="581.0" mnemonicParsing="false" onAction="#criarTarefa" prefHeight="25.0" prefWidth="110.0" text="Criar Tarefa +" />
+        <Label layoutX="196.0" layoutY="14.0" text="GERENCIADOR DE TAREFAS">
+            <font>
+                <Font name="System Bold" size="25.0" />
+            </font>
+        </Label>
+      <TextField fx:id="campoNome" layoutX="285.0" layoutY="389.0" />
+      <TextArea fx:id="campoDescricao" layoutX="260.0" layoutY="480.0" prefHeight="65.0" prefWidth="200.0" />
+      <ComboBox fx:id="prioridade" layoutX="285.0" layoutY="421.0" prefWidth="150.0" promptText="Selec... Prioridade" />
+      <Label alignment="CENTER" layoutX="285.0" layoutY="364.0" prefHeight="25.0" prefWidth="150.0" text="NOME DA TAREFA:">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="285.0" layoutY="455.0" prefHeight="25.0" prefWidth="150.0" text="DESCRIÇÃO:">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="200.0" layoutY="310.0" text="ADICIONAR NOVA TAREFA">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
       </Label>
-   </children>
+    </children>
 </AnchorPane>
