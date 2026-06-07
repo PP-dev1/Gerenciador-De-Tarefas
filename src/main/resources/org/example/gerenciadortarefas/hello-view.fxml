@@ -22,7 +22,13 @@
 
         <Button fx:id="criarTarefa" layoutX="305.0" layoutY="581.0" mnemonicParsing="false" onAction="#criarTarefa" prefHeight="25.0" prefWidth="110.0" text="Criar Tarefa +" />
 
-        <Label layoutX="196.0" layoutY="14.0" text="GERENCIADOR DE TAREFAS">
+        <Label layoutX="200.0" layoutY="-4.0" text="GERENCIADOR DE TAREFAS">
+            <font>
+                <Font name="System Bold" size="25.0" />
+            </font>
+        </Label>
+
+        <Label layoutX="200.0" layoutY="310.0" text="ADICIONAR NOVA TAREFA">
             <font>
                 <Font name="System Bold" size="25.0" />
             </font>
@@ -54,6 +60,7 @@
             </font>
         </Label>
         <TextArea fx:id="campoDescricao" layoutX="260.0" layoutY="503.0" prefHeight="65.0" prefWidth="200.0" />
+      <TextField fx:id="barraPesquisa" layoutX="37.0" layoutY="49.0" onKeyTyped="#FiltrarTarefa" prefHeight="25.0" prefWidth="210.0" promptText="Pesquisar..." />
 
     </children>
 </AnchorPane>
