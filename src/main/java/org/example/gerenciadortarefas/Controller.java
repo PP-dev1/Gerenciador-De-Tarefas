@@ -22,6 +22,9 @@ public class Controller implements Initializable {
     private TableColumn<Tarefa, String> descricao;
 
     @FXML
+    private TableColumn<Tarefa, String> colPrioridade;
+
+    @FXML
     private TableColumn<Tarefa, String> status;
 
     @FXML
@@ -35,6 +38,7 @@ public class Controller implements Initializable {
 
     @FXML
     private TextField barraPesquisa;
+
 
     private ObservableList<Tarefa> lista =
             FXCollections.observableArrayList();
@@ -50,17 +54,29 @@ public class Controller implements Initializable {
                 )
         );
 
-        task.setCellValueFactory(
-                new PropertyValueFactory<>("nome")
-        );
+        task.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        descricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
 
-        descricao.setCellValueFactory(
-                new PropertyValueFactory<>("descricao")
-        );
 
-        status.setCellValueFactory(
-                new PropertyValueFactory<>("prioridade")
-        );
+        colPrioridade.setCellValueFactory(new PropertyValueFactory<>("prioridade"));
+        colPrioridade.setCellFactory(column -> new TableCell<Tarefa, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(item);
+                    switch (item) {
+                        case "Alta"  -> setStyle("-fx-background-color: #ff4d4d; -fx-text-fill: black; -fx-font-weight: bold;");
+                        case "Média" -> setStyle("-fx-background-color: #f4ff00; -fx-text-fill: black; -fx-font-weight: bold;");
+                        case "Baixa" -> setStyle("-fx-background-color: #2196f3; -fx-text-fill: black; -fx-font-weight: bold;");
+                        default      -> setStyle("");
+                    }
+                }
+            }
+        });
 
         tabela.setItems(lista);
     }
@@ -76,9 +92,7 @@ public class Controller implements Initializable {
             return;
         }
 
-        Tarefa nova =
-                new Tarefa(nome, desc, prio);
-
+        Tarefa nova = new Tarefa(nome, desc, prio);
         lista.add(nova);
 
         campoNome.clear();
