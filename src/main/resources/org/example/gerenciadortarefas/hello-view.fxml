@@ -34,6 +34,12 @@
             </font>
         </Label>
 
+        <Label layoutX="200.0" layoutY="310.0" text="ADICIONAR NOVA TAREFA">
+            <font>
+                <Font name="System Bold" size="25.0" />
+            </font>
+        </Label>
+
         <Label alignment="CENTER" layoutX="285.0" layoutY="364.0" prefHeight="25.0" prefWidth="150.0" text="NOME DA TAREFA:">
             <font>
                 <Font name="Berlin Sans FB" size="15.0" />
