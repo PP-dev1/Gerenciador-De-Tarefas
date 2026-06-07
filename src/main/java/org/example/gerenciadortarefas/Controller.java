@@ -16,6 +16,9 @@ public class Controller implements Initializable {
     private TableView<Tarefa> tabela;
 
     @FXML
+    private TableColumn<Tarefa, String> marcar;
+
+    @FXML
     private TableColumn<Tarefa, String> task;
 
     @FXML
@@ -54,26 +57,62 @@ public class Controller implements Initializable {
                 )
         );
 
-        task.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        descricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+        task.setCellValueFactory(
+                new PropertyValueFactory<>("nome")
+        );
 
+        descricao.setCellValueFactory(
+                new PropertyValueFactory<>("descricao")
+        );
 
-        colPrioridade.setCellValueFactory(new PropertyValueFactory<>("prioridade"));
-        colPrioridade.setCellFactory(column -> new TableCell<Tarefa, String>() {
+        colPrioridade.setCellValueFactory(
+                new PropertyValueFactory<>("prioridade")
+        );
+
+        status.setCellValueFactory(
+                new PropertyValueFactory<>("status")
+        );
+
+        marcar.setCellFactory(col -> new TableCell<>() {
+
+            private final Button botao = new Button("❗");
+
+            {
+                botao.setOnAction(event -> {
+
+                    Tarefa tarefa =
+                            getTableView().getItems().get(getIndex());
+
+                    if (tarefa.getStatus().equals("Pendente")) {
+                        tarefa.setStatus("Concluída");
+                        botao.setText("✔");
+                    } else {
+                        tarefa.setStatus("Pendente");
+                        botao.setText("❗");
+                    }
+
+                    tabela.refresh();
+                });
+            }
+
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                    setStyle("");
+
+                if (empty) {
+                    setGraphic(null);
                 } else {
-                    setText(item);
-                    switch (item) {
-                        case "Alta"  -> setStyle("-fx-background-color: #ff4d4d; -fx-text-fill: black; -fx-font-weight: bold;");
-                        case "Média" -> setStyle("-fx-background-color: #f4ff00; -fx-text-fill: black; -fx-font-weight: bold;");
-                        case "Baixa" -> setStyle("-fx-background-color: #2196f3; -fx-text-fill: black; -fx-font-weight: bold;");
-                        default      -> setStyle("");
+
+                    Tarefa tarefa =
+                            getTableView().getItems().get(getIndex());
+
+                    if (tarefa.getStatus().equals("Concluída")) {
+                        botao.setText("✔");
+                    } else {
+                        botao.setText("❗");
                     }
+
+                    setGraphic(botao);
                 }
             }
         });
