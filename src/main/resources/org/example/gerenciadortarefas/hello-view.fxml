@@ -19,29 +19,21 @@
             </columns>
         </TableView>
 
-        <Button fx:id="criarTarefa" layoutX="305.0" layoutY="581.0" mnemonicParsing="false" onAction="#criarTarefa" prefHeight="25.0" prefWidth="110.0" text="Criar Tarefa +" />
-        <Label layoutX="196.0" layoutY="14.0" text="GERENCIADOR DE TAREFAS">
+        <Button fx:id="criarTarefa" layoutX="60.0" layoutY="505.0" mnemonicParsing="false" onAction="#criarTarefa" prefHeight="25.0" prefWidth="110.0" text="Criar Tarefa +" />
+        <Label layoutX="196.0" text="GERENCIADOR DE TAREFAS">
             <font>
                 <Font name="System Bold" size="25.0" />
             </font>
         </Label>
-      <TextField fx:id="campoNome" layoutX="285.0" layoutY="389.0" />
-      <TextArea fx:id="campoDescricao" layoutX="260.0" layoutY="480.0" prefHeight="65.0" prefWidth="200.0" />
-      <ComboBox fx:id="prioridade" layoutX="285.0" layoutY="421.0" prefWidth="150.0" promptText="Selec... Prioridade" />
-      <Label alignment="CENTER" layoutX="285.0" layoutY="364.0" prefHeight="25.0" prefWidth="150.0" text="NOME DA TAREFA:">
+      <TextField fx:id="campoNome" layoutX="15.0" layoutY="346.0" prefWidth="200.0" promptText="Nome Da Tarefa" />
+      <TextArea fx:id="campoDescricao" layoutX="15.0" layoutY="383.0" prefHeight="65.0" prefWidth="200.0" promptText="Descrição" />
+      <ComboBox fx:id="prioridade" layoutX="40.0" layoutY="460.0" prefWidth="150.0" promptText="Selec... Prioridade" />
+      <Label layoutX="29.0" layoutY="310.0" prefHeight="36.0" prefWidth="172.0" text="ADICIONAR NOVA TAREFA" textAlignment="CENTER">
          <font>
-            <Font name="Berlin Sans FB" size="15.0" />
+            <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="285.0" layoutY="455.0" prefHeight="25.0" prefWidth="150.0" text="DESCRIÇÃO:">
-         <font>
-            <Font name="Berlin Sans FB" size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="200.0" layoutY="310.0" text="ADICIONAR NOVA TAREFA">
-         <font>
-            <Font name="System Bold" size="25.0" />
-         </font>
-      </Label>
+      <TextFlow prefHeight="200.0" prefWidth="200.0" />
+      <TextField fx:id="barraPesquisa" layoutX="66.0" layoutY="49.0" onKeyTyped="#FiltrarTarefa" prefHeight="25.0" prefWidth="294.0" promptText="Pesquisar..." />
     </children>
 </AnchorPane>

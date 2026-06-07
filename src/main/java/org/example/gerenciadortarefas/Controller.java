@@ -33,13 +33,14 @@ public class Controller implements Initializable {
     @FXML
     private TextArea campoDescricao;
 
+    @FXML
+    private TextField barraPesquisa;
+
     private ObservableList<Tarefa> lista =
             FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        System.out.println(prioridade);
 
         prioridade.setItems(
                 FXCollections.observableArrayList(
@@ -83,5 +84,21 @@ public class Controller implements Initializable {
         campoNome.clear();
         campoDescricao.clear();
         prioridade.setValue(null);
+        tabela.setItems(lista);
+    }
+    public void FiltrarTarefa(){
+
+        String pesquisa = barraPesquisa.getText().toLowerCase();
+
+        ObservableList<Tarefa> filtrada =
+                FXCollections.observableArrayList();
+
+        for (Tarefa tarefa : lista) {
+
+            if (tarefa.getNome().toLowerCase().contains(pesquisa) || tarefa.getDescricao().toLowerCase().contains(pesquisa)) {
+                filtrada.add(tarefa);
+            }
+        }
+        tabela.setItems(filtrada);
     }
 }
