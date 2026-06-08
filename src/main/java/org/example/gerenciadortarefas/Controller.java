@@ -1,10 +1,12 @@
 package org.example.gerenciadortarefas;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
@@ -14,6 +16,9 @@ public class Controller implements Initializable {
 
     @FXML
     private TableView<Tarefa> tabela;
+
+    @FXML
+    private TableColumn<Tarefa, Boolean> marcar;
 
     @FXML
     private TableColumn<Tarefa, String> task;
@@ -39,7 +44,6 @@ public class Controller implements Initializable {
     @FXML
     private TextField barraPesquisa;
 
-
     private ObservableList<Tarefa> lista =
             FXCollections.observableArrayList();
 
@@ -54,29 +58,64 @@ public class Controller implements Initializable {
                 )
         );
 
-        task.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        descricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+        tabela.setEditable(true);
+        marcar.setEditable(true);
 
+        marcar.setCellValueFactory(cellData ->
+                cellData.getValue().concluidaProperty());
 
-        colPrioridade.setCellValueFactory(new PropertyValueFactory<>("prioridade"));
-        colPrioridade.setCellFactory(column -> new TableCell<Tarefa, String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                    setStyle("");
-                } else {
-                    setText(item);
-                    switch (item) {
-                        case "Alta"  -> setStyle("-fx-background-color: #ff4d4d; -fx-text-fill: black; -fx-font-weight: bold;");
-                        case "Média" -> setStyle("-fx-background-color: #f4ff00; -fx-text-fill: black; -fx-font-weight: bold;");
-                        case "Baixa" -> setStyle("-fx-background-color: #2196f3; -fx-text-fill: black; -fx-font-weight: bold;");
-                        default      -> setStyle("");
+        marcar.setCellFactory(
+                CheckBoxTableCell.forTableColumn(marcar)
+        );
+
+        task.setCellValueFactory(
+                new PropertyValueFactory<>("nome"));
+
+        descricao.setCellValueFactory(
+                new PropertyValueFactory<>("descricao"));
+
+        status.setCellValueFactory(
+                cellData -> cellData.getValue().statusProperty());
+
+        colPrioridade.setCellValueFactory(
+                new PropertyValueFactory<>("prioridade"));
+
+        marcar.setCellValueFactory(cellData ->
+                cellData.getValue().concluidaProperty());
+
+        marcar.setCellFactory(
+                CheckBoxTableCell.forTableColumn(marcar));
+
+        colPrioridade.setCellFactory(column ->
+                new TableCell<>() {
+
+                    @Override
+                    protected void updateItem(String item,
+                                              boolean empty) {
+
+                        super.updateItem(item, empty);
+
+                        if(empty || item == null){
+                            setText(null);
+                            setStyle("");
+                            return;
+                        }
+
+                        setText(item);
+
+                        switch (item){
+
+                            case "Alta" ->
+                                    setStyle("-fx-background-color:#ff4d4d;");
+
+                            case "Média" ->
+                                    setStyle("-fx-background-color:#f4ff00;");
+
+                            case "Baixa" ->
+                                    setStyle("-fx-background-color:#2196f3;");
+                        }
                     }
-                }
-            }
-        });
+                });
 
         tabela.setItems(lista);
     }
@@ -88,31 +127,70 @@ public class Controller implements Initializable {
         String desc = campoDescricao.getText();
         String prio = prioridade.getValue();
 
-        if(nome.isEmpty() || prio == null){
+        if(nome.isBlank() || prio == null){
             return;
         }
 
-        Tarefa nova = new Tarefa(nome, desc, prio);
+        Tarefa nova =
+                new Tarefa(
+                        nome,
+                        desc,
+                        prio,
+                        "Pendente"
+                );
+
         lista.add(nova);
+
+        lista.sort((t1, t2) ->
+                Integer.compare(
+                        prioridadeValor(t1.getPrioridade()),
+                        prioridadeValor(t2.getPrioridade())
+                )
+        );
 
         campoNome.clear();
         campoDescricao.clear();
-        prioridade.setValue(null);
-        tabela.setItems(lista);
     }
+
+    @FXML
     public void FiltrarTarefa(){
 
-        String pesquisa = barraPesquisa.getText().toLowerCase();
+        String pesquisa =
+                barraPesquisa
+                        .getText()
+                        .toLowerCase();
 
         ObservableList<Tarefa> filtrada =
                 FXCollections.observableArrayList();
 
-        for (Tarefa tarefa : lista) {
+        for(Tarefa tarefa : lista){
 
-            if (tarefa.getNome().toLowerCase().contains(pesquisa) || tarefa.getDescricao().toLowerCase().contains(pesquisa)) {
+            if(tarefa.getNome()
+                    .toLowerCase()
+                    .contains(pesquisa)
+
+                    || tarefa.getDescricao()
+                    .toLowerCase()
+                    .contains(pesquisa)){
+
                 filtrada.add(tarefa);
             }
         }
+
         tabela.setItems(filtrada);
+    }
+
+    private int prioridadeValor(String prioridade){
+
+        return switch (prioridade){
+
+            case "Alta" -> 1;
+
+            case "Média" -> 2;
+
+            case "Baixa" -> 3;
+
+            default -> 999;
+        };
     }
 }
