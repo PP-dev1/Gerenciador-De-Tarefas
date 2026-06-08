@@ -1,112 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.Insets?>
 
-<VBox
-        prefHeight="660.0" prefWidth="740.0"
-        spacing="0"
-        style="-fx-background-color: #F4F6FB;"
-        xmlns="http://javafx.com/javafx/17.0.12"
-        xmlns:fx="http://javafx.com/fxml/1"
-        fx:controller="org.example.gerenciadortarefas.Controller">
+<VBox prefHeight="660.0" prefWidth="740.0" spacing="0" style="-fx-background-color: #F4F6FB;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.gerenciadortarefas.Controller">
 
     <!-- ===== HEADER ===== -->
-    <HBox
-            prefHeight="64"
-            alignment="CENTER_LEFT"
-            style="-fx-background-color: #2C3E6B; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 8, 0, 0, 3);">
-        <padding><Insets top="0" right="28" bottom="0" left="28"/></padding>
+    <HBox alignment="CENTER_LEFT" prefHeight="64" style="-fx-background-color: #2C3E6B; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 8, 0, 0, 3);">
+        <padding><Insets bottom="0" left="28" right="28" top="0" /></padding>
         <VBox spacing="2">
-            <Label
-                    text="📋  Gerenciador de Tarefas"
-                    style="-fx-text-fill: #FFFFFF; -fx-font-size: 20px; -fx-font-weight: bold;"/>
-            <Label
-                    text="Organize suas atividades com facilidade"
-                    style="-fx-text-fill: #A8B8DC; -fx-font-size: 11px;"/>
+            <Label style="-fx-text-fill: #FFFFFF; -fx-font-size: 20px; -fx-font-weight: bold;" text="📋  Gerenciador de Tarefas" />
+            <Label style="-fx-text-fill: #A8B8DC; -fx-font-size: 11px;" text="Organize suas atividades com facilidade" />
         </VBox>
     </HBox>
 
     <!-- ===== CONTEÚDO ===== -->
     <VBox spacing="20" VBox.vgrow="ALWAYS">
-        <padding><Insets top="24" right="28" bottom="24" left="28"/></padding>
+        <padding><Insets bottom="24" left="28" right="28" top="24" /></padding>
 
         <!-- Label seção tabela -->
-        <Label
-                text="Tarefas Cadastradas"
-                style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #2C3E6B;"/>
+        <Label style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #2C3E6B;" text="Tarefas Cadastradas" />
+      <TextField fx:id="barraPesquisa" onKeyTyped="#FiltrarTarefa" promptText="Pesquisar..." />
 
         <!-- TABELA -->
-        <TableView fx:id="tabela" prefHeight="230" VBox.vgrow="ALWAYS"
-                   style="-fx-background-color: #FFFFFF; -fx-background-radius: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 10, 0, 0, 3); -fx-border-color: transparent;">
+        <TableView fx:id="tabela" prefHeight="230" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 10, 0, 0, 3); -fx-border-color: transparent;" VBox.vgrow="ALWAYS">
             <columnResizePolicy>
-                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
             <columns>
-                <TableColumn fx:id="marcar"       maxWidth="40"  minWidth="40"  text=""/>
-                <TableColumn fx:id="task"         prefWidth="175" text="Tarefa"/>
-                <TableColumn fx:id="descricao"    prefWidth="210" text="Descrição"/>
-                <TableColumn fx:id="colPrioridade" prefWidth="130" text="Prioridade"/>
-                <TableColumn fx:id="status"       prefWidth="130" text="Status"/>
+                <TableColumn fx:id="marcar" maxWidth="40" minWidth="40" text="" />
+                <TableColumn fx:id="task" prefWidth="175" text="Tarefa" />
+                <TableColumn fx:id="descricao" prefWidth="210" text="Descrição" />
+                <TableColumn fx:id="colPrioridade" prefWidth="130" text="Prioridade" />
+                <TableColumn fx:id="status" prefWidth="130" text="Status" />
             </columns>
             <placeholder>
-                <Label text="Nenhuma tarefa cadastrada ainda."
-                       style="-fx-text-fill: #AAAAAA; -fx-font-size: 13px;"/>
+                <Label style="-fx-text-fill: #AAAAAA; -fx-font-size: 13px;" text="Nenhuma tarefa cadastrada ainda." />
             </placeholder>
         </TableView>
 
         <!-- CARD FORMULÁRIO -->
-        <VBox
-                spacing="14"
-                style="-fx-background-color: #FFFFFF; -fx-background-radius: 12px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 10, 0, 0, 3);">
-            <padding><Insets top="20" right="24" bottom="20" left="24"/></padding>
+        <VBox spacing="14" style="-fx-background-color: #FFFFFF; -fx-background-radius: 12px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 10, 0, 0, 3);">
+            <padding><Insets bottom="20" left="24" right="24" top="20" /></padding>
 
-            <Label
-                    text="Nova Tarefa"
-                    style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #2C3E6B;"/>
+            <Label style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #2C3E6B;" text="Nova Tarefa" />
 
             <!-- Nome + Prioridade lado a lado -->
             <HBox spacing="16">
                 <VBox spacing="5" HBox.hgrow="ALWAYS">
-                    <Label text="NOME DA TAREFA"
-                           style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #8899BB;"/>
-                    <TextField fx:id="campoNome"
-                               promptText="Ex: Implementar tela de login"
-                               prefHeight="34"
-                               style="-fx-background-radius: 7px; -fx-border-radius: 7px; -fx-border-color: #DDE3F0; -fx-border-width: 1.5; -fx-background-color: #F8FAFD; -fx-font-size: 13px;"/>
+                    <Label style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #8899BB;" text="NOME DA TAREFA" />
+                    <TextField fx:id="campoNome" prefHeight="34" promptText="Ex: Implementar tela de login" style="-fx-background-radius: 7px; -fx-border-radius: 7px; -fx-border-color: #DDE3F0; -fx-border-width: 1.5; -fx-background-color: #F8FAFD; -fx-font-size: 13px;" />
                 </VBox>
-                <VBox spacing="5" prefWidth="190">
-                    <Label text="PRIORIDADE"
-                           style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #8899BB;"/>
-                    <ComboBox fx:id="prioridade"
-                              promptText="Selecionar..."
-                              prefWidth="190" prefHeight="34"
-                              style="-fx-background-radius: 7px; -fx-border-radius: 7px; -fx-border-color: #DDE3F0; -fx-border-width: 1.5; -fx-background-color: #F8FAFD; -fx-font-size: 13px;"/>
+                <VBox prefWidth="190" spacing="5">
+                    <Label style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #8899BB;" text="PRIORIDADE" />
+                    <ComboBox fx:id="prioridade" prefHeight="34" prefWidth="190" promptText="Selecionar..." style="-fx-background-radius: 7px; -fx-border-radius: 7px; -fx-border-color: #DDE3F0; -fx-border-width: 1.5; -fx-background-color: #F8FAFD; -fx-font-size: 13px;" />
                 </VBox>
             </HBox>
 
             <!-- Descrição -->
             <VBox spacing="5">
-                <Label text="DESCRIÇÃO"
-                       style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #8899BB;"/>
-                <TextArea fx:id="campoDescricao"
-                          promptText="Descreva a tarefa..."
-                          prefHeight="75"
-                          wrapText="true"
-                          style="-fx-background-radius: 7px; -fx-border-radius: 7px; -fx-border-color: #DDE3F0; -fx-border-width: 1.5; -fx-background-color: #F8FAFD; -fx-font-size: 13px;"/>
+                <Label style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #8899BB;" text="DESCRIÇÃO" />
+                <TextArea fx:id="campoDescricao" prefHeight="75" promptText="Descreva a tarefa..." style="-fx-background-radius: 7px; -fx-border-radius: 7px; -fx-border-color: #DDE3F0; -fx-border-width: 1.5; -fx-background-color: #F8FAFD; -fx-font-size: 13px;" wrapText="true" />
             </VBox>
 
             <!-- Botão -->
             <HBox alignment="CENTER_RIGHT">
-                <Button
-                        fx:id="criarTarefa"
-                        text="+ Criar Tarefa"
-                        mnemonicParsing="false"
-                        onAction="#criarTarefa"
-                        prefHeight="36" prefWidth="140"
-                        style="-fx-background-color: #2C3E6B; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13px; -fx-background-radius: 8px; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(44,62,107,0.3), 6, 0, 0, 2);"/>
+                <Button fx:id="criarTarefa" mnemonicParsing="false" onAction="#criarTarefa" prefHeight="36" prefWidth="140" style="-fx-background-color: #2C3E6B; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13px; -fx-background-radius: 8px; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(44,62,107,0.3), 6, 0, 0, 2);" text="+ Criar Tarefa" />
             </HBox>
 
         </VBox>
